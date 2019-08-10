@@ -1,6 +1,6 @@
 <?php
 
-namespace App\src\Container;
+namespace src\Container;
 
 class Container implements \ArrayAccess
 {
@@ -9,13 +9,14 @@ class Container implements \ArrayAccess
          * 为二维数组。一个类名(name)下还有一个class键描述类的具体信息，一个shared键描述该类是否为共享服务
          * 该class描述类的信息可以是匿名函数，可以是字符串(带命名空间的类地址)
          */
-    private $_bindings = array();
+    protected $bindings = array();
 
     /*
      * 已实例化的服务列表
      * 其结构为一个类名（name）对应一个该类的实例化（value）
      */
-    private $_instances = array();
+    protected $instances = array();
+
 
     /**
      * 获取服务
@@ -26,17 +27,17 @@ class Container implements \ArrayAccess
     public function make($name, $param = array())
     {
         //该类已存在与已实例化的服务列表
-        if (isset($this->_instances[$name])) {
-            return $this->_instances[$name];
+        if (isset($this->instances[$name])) {
+            return $this->instances[$name];
         }
 
         //该类在绑定服务列表中不存在
-        if (!isset($this->_bindings[$name])) {
+        if (!isset($this->bindings[$name])) {
             return null;
         }
 
         //对象注册的具体内容
-        $concrete = $this->_bindings[$name]['class'];
+        $concrete = $this->bindings[$name]['class'];
 
         $obj = '';
 
@@ -58,8 +59,8 @@ class Container implements \ArrayAccess
         }
 
         //如果为共享服务，且已有该类的实例化
-        if ($this->_bindings[$name]['shared'] === true && $obj) {
-            $this->_instances[$name] = $obj;
+        if ($this->bindings[$name]['shared'] === true && $obj) {
+            $this->instances[$name] = $obj;
         }
 
         return $obj;
@@ -71,16 +72,26 @@ class Container implements \ArrayAccess
      * @param $class
      * @param bool $shared
      */
-    private function _registerService($name, $class, $shared = false)
+    protected function registerService($name, $class, $shared = false)
     {
         $this->remove($name);
 
         //如果此描述信息为一个实例化的类并且不为匿名函数
         if (!($class instanceof \Closure) && is_object($class)) {
-            $this->_instances[$name] = $class;
+            $this->instances[$name] = $class;
         } else {
-            $this->_bindings[$name] = array("class" => $class, "shared" => $shared);
+            $this->bindings[$name] = array("class" => $class, "shared" => $shared);
         }
+    }
+
+    /**
+     * 绑定共享服务到容器中
+     * @param $abstract
+     * @param $instance
+     */
+    public function instance($abstract, $instance)
+    {
+        $this->instances[$abstract] = $instance;
     }
 
     /**
@@ -90,7 +101,7 @@ class Container implements \ArrayAccess
      */
     public function has($name)
     {
-        return isset($this->_instances[$name]) or isset($this->_bindings[$name]);
+        return isset($this->instances[$name]) or isset($this->bindings[$name]);
     }
 
     /**
@@ -99,7 +110,7 @@ class Container implements \ArrayAccess
      */
     public function remove($name)
     {
-        unset($this->_instances[$name], $this->_bindings[$name]);
+        unset($this->instances[$name], $this->bindings[$name]);
     }
 
     /**
@@ -109,7 +120,7 @@ class Container implements \ArrayAccess
      */
     public function set($name, $class)
     {
-        $this->_registerService($name, $class);
+        $this->registerService($name, $class);
     }
 
     /**
@@ -119,7 +130,7 @@ class Container implements \ArrayAccess
      */
     public function setShared($name, $class)
     {
-        $this->_registerService($name, $class, true);
+        $this->registerService($name, $class, true);
     }
 
     /**
