@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Facade;
+namespace Src\Facade;
 
 
 class Route extends Facade

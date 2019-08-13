@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Routing;
+namespace Src\Routing;
 
 
 class Router
@@ -12,7 +12,7 @@ class Router
 
     public function get($uri, $action = null)
     {
-
+        echo $uri,$action;die;
     }
 
     public function post($uri, $action = null)

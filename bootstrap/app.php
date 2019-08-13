@@ -1,10 +1,8 @@
 <?php
 
-namespace src\Foundation;
-
 use src\Foundation\Http\Kernel;
 
-$app = new Application();
+$app = new Src\Foundation\Application();
 
 $app->instance(Kernel::class, new Kernel());
 

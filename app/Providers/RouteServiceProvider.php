@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Src\Routing\Router;
+
 class RouteServiceProvider
 {
     protected $app;
@@ -15,6 +17,8 @@ class RouteServiceProvider
     {
         $this->app = $app;
 
+        $app->instance('router', new Router());
+
         $this->loadRoute();
     }
 
@@ -23,6 +27,6 @@ class RouteServiceProvider
      */
     protected function loadRoute()
     {
-        require '../../routes/api.php';
+        require '../routes/api.php';
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Foundation\Http;
+namespace Src\Foundation\Http;
 
 
 class Kernel

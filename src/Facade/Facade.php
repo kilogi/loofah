@@ -1,25 +1,49 @@
 <?php
 
-namespace src\Facade;
+namespace Src\Facade;
 
-
-use src\Container\Container;
 
 abstract class Facade
 {
+    //app核心类
+    protected static $app;
+    //解析的实例
+    protected static $resolvedInstance;
+
     /**
      * 获取实例
      * @return mixed|null|object
      */
     public static function getFacadeRoot()
     {
-        $name = static::getFacadeAccessor();
+        return static::resolveFacadeInstance(static::getFacadeAccessor());
+    }
 
-        $container = new Container();
+    /**
+     * 解析门脸实例
+     * @param $name
+     * @return mixed
+     */
+    protected static function resolveFacadeInstance($name)
+    {
+        if (is_object($name)) {
+            return $name;
+        }
 
-        $obj = $container->make($name);
+        if (isset(static::$resolvedInstance[$name])) {
+            return static::$resolvedInstance[$name];
+        }
 
-        return $obj;
+        return static::$resolvedInstance[$name] = static::$app[$name];
+    }
+
+    /**
+     * 设置门脸App核心类
+     * @param $app
+     */
+    public static function setFacadeApplication($app)
+    {
+        static::$app = $app;
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Container;
+namespace Src\Container;
 
 class Container implements \ArrayAccess
 {

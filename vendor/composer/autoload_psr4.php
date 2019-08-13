@@ -6,9 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'classmap' => array($baseDir . '/src'),
     'Symfony\\Thanks\\' => array($vendorDir . '/symfony/thanks/src'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Component\\HttpFoundation\\' => array($vendorDir . '/symfony/http-foundation'),
+    'Src\\' => array($baseDir . '/src'),
     'App\\' => array($baseDir . '/app'),
 );

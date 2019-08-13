@@ -8,11 +8,9 @@
   "autoload": {
 
     "psr-4": {
-      "classmap": [
-        "src"
-      ],
 
-      "App\\" : "app/"
+      "App\\" : "app/",
+      "Src\\" : "src/"
 
     }
 
