@@ -5,17 +5,17 @@ namespace Src\Container;
 class Container implements \ArrayAccess
 {
     /*
-         * 已绑定的服务列表
-         * 为二维数组。一个类名(name)下还有一个class键描述类的具体信息，一个shared键描述该类是否为共享服务
-         * 该class描述类的信息可以是匿名函数，可以是字符串(带命名空间的类地址)
-         */
+     * 已绑定的服务列表
+     * 为二维数组。一个类名(name)下还有一个class键描述类的具体信息，一个shared键描述该类是否为共享服务
+     * 该class描述类的信息可以是匿名函数，可以是字符串(带命名空间的类地址)
+     */
     protected $bindings = array();
 
     /*
      * 已实例化的服务列表
      * 其结构为一个类名（name）对应一个该类的实例化（value）
      */
-    protected $instances = array();
+    public $instances = array();
 
 
     /**
@@ -33,7 +33,9 @@ class Container implements \ArrayAccess
 
         //该类在绑定服务列表中不存在
         if (!isset($this->bindings[$name])) {
-            return null;
+            $class = new \ReflectionClass($name);
+            $obj = $class->newInstanceArgs($param);
+            return $obj;
         }
 
         //对象注册的具体内容
@@ -48,14 +50,9 @@ class Container implements \ArrayAccess
 
         //如果该描述类的信息为字符串
         if (is_string($concrete)) {
-            //如果没有参数
-            if (!$param) {
-                $obj = new $concrete;
-            } else {
-                //如果有参数，则使用反射进行类的实例化
-                $class = new \ReflectionClass($concrete);
-                $obj = $class->newInstanceArgs($param);
-            }
+            //使用反射进行类的实例化
+            $class = new \ReflectionClass($concrete);
+            $obj = $class->newInstanceArgs($param);
         }
 
         //如果为共享服务，且已有该类的实例化

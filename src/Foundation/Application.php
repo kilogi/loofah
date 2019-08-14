@@ -21,11 +21,13 @@ class Application extends Container
      */
     public function __construct()
     {
-        //注册基本的绑定和基本的服务提供者
+        //注册基本的绑定
         $this->registerBaseBindings();
+        //执行一些引导类
         $this->bootstrapWith([
             RegisterFacades::class
         ]);
+        //注册基本的服务提供者
         $this->registerBaseServiceProviders();
     }
 

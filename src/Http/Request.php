@@ -2,6 +2,7 @@
 
 namespace Src\Http;
 
+use Src\Support\Str;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 class Request extends SymfonyRequest
@@ -45,4 +46,14 @@ class Request extends SymfonyRequest
 
         return $request;
     }
+
+    protected function getInputSource()
+    {
+//        if ($this->isJson()) {
+//            return $this->json();
+//        }
+
+        return in_array($this->getRealMethod(), ['GET', 'HEAD']) ? $this->query : $this->request;
+    }
+
 }

@@ -2,15 +2,23 @@
 
 namespace Src\Foundation\Http;
 
+use App\Http\Controller\TestController;
 
 class Kernel
 {
+
+//    public function __construct(Application $app, Router $router)
+//    {
+//        $this->app = $app;
+//        $this->router = $router;
+//    }
+
     /**
      * 执行获取到的Http请求
      * @param $request
      * @return array
      */
-    public function handle($request)
+    public function handle($request, $app)
     {
 
         $response = $this->sendRequestThroughRouter($request);
@@ -25,6 +33,10 @@ class Kernel
      */
     protected function sendRequestThroughRouter($request)
     {
-        // TODO
+//        $this->app->instance('request', $request);
+
+        $ser = $request->server->get('REQUEST_URI');
+        echo $ser;
+        die;
     }
 }

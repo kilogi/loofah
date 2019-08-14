@@ -1,9 +1,9 @@
 <?php
 
-use src\Foundation\Http\Kernel;
+use Src\Foundation\Http\Kernel;
 
 $app = new Src\Foundation\Application();
 
-$app->instance(Kernel::class, new Kernel());
+$app->instance('kernel', new Kernel());
 
 return $app;

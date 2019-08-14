@@ -4,9 +4,9 @@ namespace App\Http\Controller;
 
 class TestController extends Controller
 {
-    public function testing()
+    public function testing($a)
     {
-        echo '成功';
+        echo $a;
     }
 
     public function getTest()

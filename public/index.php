@@ -11,7 +11,8 @@ $kernel = $app->make('kernel');
 
 //处理请求
 $response = $kernel->handle(
-    $request = \src\Http\Request::capture()
+    $request = \Src\Http\Request::capture(),
+    $app
 );
 
 //响应
