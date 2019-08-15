@@ -8,6 +8,7 @@ class ComposerStaticInit73592d28458c77e35f6b73d57bfb1863
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -15,6 +16,7 @@ class ComposerStaticInit73592d28458c77e35f6b73d57bfb1863
         array (
             'Symfony\\Thanks\\' => 15,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Component\\VarDumper\\' => 28,
             'Symfony\\Component\\HttpFoundation\\' => 33,
             'Src\\' => 4,
         ),
@@ -32,6 +34,10 @@ class ComposerStaticInit73592d28458c77e35f6b73d57bfb1863
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Component\\VarDumper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/var-dumper',
         ),
         'Symfony\\Component\\HttpFoundation\\' => 
         array (

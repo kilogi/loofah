@@ -2,7 +2,8 @@
 
   "require-dev": {
     "symfony/thanks": "^1.0",
-    "symfony/http-foundation": "3.3.0"
+    "symfony/http-foundation": "3.3.0",
+    "symfony/var-dumper":"3.3.0"
   },
 
   "autoload": {

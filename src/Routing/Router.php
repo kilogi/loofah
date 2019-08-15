@@ -43,12 +43,12 @@ class Router
 
     public function get($uri, $action = null)
     {
-        return $this->addRoute('GET', $uri, $action);
+        return $this->addRoute(['GET'], $uri, $action);
     }
 
     public function post($uri, $action = null)
     {
-        return $this->addRoute('POST', $uri, $action);
+        return $this->addRoute(['POST'], $uri, $action);
     }
 
 

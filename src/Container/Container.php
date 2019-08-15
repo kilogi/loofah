@@ -15,7 +15,7 @@ class Container implements \ArrayAccess
      * 已实例化的服务列表
      * 其结构为一个类名（name）对应一个该类的实例化（value）
      */
-    public $instances = array();
+    protected $instances = array();
 
 
     /**
@@ -91,6 +91,11 @@ class Container implements \ArrayAccess
         $this->instances[$abstract] = $instance;
     }
 
+    public function singleton()
+    {
+
+    }
+
     /**
      * 检测类是否绑定
      * @param $name
@@ -128,6 +133,18 @@ class Container implements \ArrayAccess
     public function setShared($name, $class)
     {
         $this->registerService($name, $class, true);
+    }
+
+    /**
+     * 执行方法
+     * @param $callback
+     * @param array $parameters
+     * @param null $defaultMethod
+     * @return mixed
+     */
+    public function call($callback, array $parameters = [], $defaultMethod = null)
+    {
+        return BoundMethod::call($this, $callback, $parameters, $defaultMethod);
     }
 
     /**

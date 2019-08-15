@@ -3,8 +3,9 @@
 namespace App\Providers;
 
 use Src\Routing\Router;
+use Src\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
-class RouteServiceProvider
+class RouteServiceProvider extends ServiceProvider
 {
     protected $app;
 
@@ -19,7 +20,6 @@ class RouteServiceProvider
 
         $app->instance('router', new Router());
 
-        $this->loadRoute();
     }
 
     /**
